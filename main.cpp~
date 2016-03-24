@@ -1,0 +1,63 @@
+#include <ncurses.h>
+
+void mapa(); 
+
+int main(int argc, char*argv[])
+{
+	char apuesta = ' '; 
+	int cont = 1; 
+	initscr();
+	refresh();
+	echo();
+	mvprintw(9,20,"***************************************** BIENVENIDO **************************************");
+	mvprintw(10,17,"****************************************** TIRO AL BLANCO ***************************************"); 
+	mvprintw(15,20, "INGRESE LA CANTIDAD DE DINERO QUE DESEA APOSTAR: "); 
+
+	while( apuesta != '\n')
+	{
+		noecho();
+		apuesta = getch();
+		if( cont > 1 && apuesta >= 48  && apuesta <58)
+		{
+			addch(apuesta);
+			echo();
+		}
+		else if(apuesta >= 49  && apuesta <58)
+		{
+			addch(apuesta);
+			echo();
+			cont++; 
+		}
+		
+	}
+
+	mvprintw(9,20,"                                                                                                 ");
+	mvprintw(10,17,"                                                                                                        "); 
+	mvprintw(15,20, "                                                                "); 
+	mapa();
+	getch();
+	endwin();
+	return 0; 
+}
+
+void mapa()
+{
+	
+	mvprintw(1,20,"***************************************** BIENVENIDO **************************************");
+	mvprintw(2,17,"****************************************** TIRO AL BLANCO ***************************************");
+
+	mvprintw(5,8,"         ****             ****             ****             ****   ");
+	mvprintw(6,8,"         ****             ****             ****             ****   ");
+	mvprintw(7,8,"    *********        *********        *********        *********  ");
+	mvprintw(8,8,"    *********        *********        *********        *********   ");
+	mvprintw(9,8,"         ****             ****             ****             ****   ");
+	mvprintw(10,8,"        *****            *****            *****            *****   ");
+	mvprintw(11,8,"       *** ***          *** ***          *** ***          *** ***   ");
+	mvprintw(12,8,"      ***   ***	      ***    ***       ***   ***        ***   ***   ");
+	mvprintw(13,8,"     +---------+      +---------+      +---------+      +--------+   "); 
+	mvprintw(14,8,"     |    1    |      |     2   |      |    3    |      |   4    |   ");  
+	mvprintw(15,8,"-----+---------+------+---------+------+---------+------+--------+-----  "); 
+
+
+ 
+}

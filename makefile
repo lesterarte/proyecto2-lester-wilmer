@@ -1,5 +1,5 @@
 tiro:	main.o tiro.o oneofthree.o twoofthree.o threeofthree.o
-	g++ main.o tiro.o oneofthree.o twoofthree.o threeofthree.o -o blanco
+	g++ main.o tiro.o oneofthree.o twoofthree.o threeofthree.o -lncurses
 
 main.o:	main.cpp tiro.h oneofthree.h twoofthree.h threeofthree.h
 	g++ -c main.cpp 
