@@ -6,7 +6,7 @@
 using std::string;
 using std::stringstream;
 
-twoofthree::twoofthree(string atino1, double dinero2):atino1(atino1), dinero2(dinero2){
+twoofthree::twoofthree(double atino1, double dinero2):atino1(atino1), dinero2(dinero2){
 
 }
 twoofthree::~twoofthree(){
@@ -17,10 +17,10 @@ string twoofthree::toString()const{
 	ss << "Atino:";
 	return ss.str();
 }
-string twoofthree::Atino()const{
+double twoofthree::Atino()const{
 	return atino1;
 }
 
 double twoofthree::DineroGanado()const{
-	return dinero2+200;
+	return dinero2*atino1;
 }
