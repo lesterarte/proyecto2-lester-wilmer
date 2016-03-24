@@ -12,4 +12,6 @@ class tiro{
 	virtual double DineroGanado()const=0;
 
 	
+
+	
 };
