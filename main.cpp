@@ -62,6 +62,7 @@ int main(int argc, char*argv[]){
 
 	while(apuesta != 51){
 		if(apuesta == 49){
+			double LePegoAlBlanco=-1;
 			signedpremios(arraypremios,filas,columnas);
 			clear();
 			refresh();
@@ -112,19 +113,22 @@ int main(int argc, char*argv[]){
 					mapapiezas(arraypremios,filas,columnas);
 					refresh();
 					mvprintw(18,90,"FELICIDADES ACERTASTE ");
-						
-					if(turnos==0){
+						LePegoAlBlanco = LePegoAlBlanco+1;
+					if(LePegoAlBlanco==0){
 
-						oneofthree tr (0.10,100);
+						oneofthree tr (0.10,apuestaJugador);
 						gananciaJugador  = tr.DineroGanado();
+						
 					}	
-					if (turnos==1){
-						twoofthree tr (0.35,100);
+					if (LePegoAlBlanco==1){
+						twoofthree tr (0.35,apuestaJugador);
 						gananciaJugador  = tr.DineroGanado();
+						
 					}	
-					if (turnos==2){
-						threeofthree tr (0.50,100);
+					if (LePegoAlBlanco==2){
+						threeofthree tr (0.50,apuestaJugador);
 						gananciaJugador  = tr.DineroGanado();
+						
 					}	
 
 
