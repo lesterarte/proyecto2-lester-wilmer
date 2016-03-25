@@ -146,6 +146,7 @@ int main(int argc, char*argv[])
 			rules();
 			getch();
 		}
+		cont=0;
 		clear();
 		refresh();
 		mvprintw(9,20,"***************************************** BIENVENIDO **************************************");
