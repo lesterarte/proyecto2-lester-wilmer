@@ -22,7 +22,8 @@ void clearmap(char**, int,int);
 
 int main(int argc, char*argv[]){
 	double apuestaJugador = 100;
-	double gananciaJugador = 100.0;
+	double gananciaJugador ;
+	double uu =0;
 	int filas = 3; 
 	int columnas= 4; 
 	char apuesta = ' '; 
@@ -106,26 +107,29 @@ int main(int argc, char*argv[]){
 				}//fin de while de ingreso de coordenada	segundo whiler anidado al while turnos
 				contar=0;			
 				move(11,117);
+				
 				if(existencia(arraypremios,pocision[0],pocision[1]) == true){
 					clearmap(arraypremios,filas,columnas);
 					mapapiezas(arraypremios,filas,columnas);
 					refresh();
 					mvprintw(18,90,"FELICIDADES ACERTASTE ");
-					double uu =0;	
+						
 					if(turnos==0){
 
 						oneofthree tr (0.10,100);
-						uu = tr.DineroGanado();
+						gananciaJugador  = tr.DineroGanado();
 					}	
 					if (turnos==1){
 						twoofthree tr (0.35,100);
-						uu = tr.DineroGanado();
+						gananciaJugador  = tr.DineroGanado();
 					}	
 					if (turnos==2){
 						threeofthree tr (0.50,100);
-						uu = tr.DineroGanado();
-					}				
-					printw("[%d] ",uu);
+						gananciaJugador  = tr.DineroGanado();
+					}	
+
+
+					printw("[%lf] ",gananciaJugador );
 
 
 
@@ -137,7 +141,7 @@ int main(int argc, char*argv[]){
 					mapapiezas(arraypremios,filas,columnas);
 					refresh();
 					mvprintw(18,90,"PERDISTE, NO HAY PREMIO ");
-					printw("[%d] ",gananciaJugador);
+					printw("[%lf] ",gananciaJugador );
 					getch();
 				}
 
