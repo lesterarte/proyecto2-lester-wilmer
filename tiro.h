@@ -8,7 +8,7 @@ class tiro{
 	tiro();
 	virtual ~tiro();
 	virtual string toString()const;
-	virtual string Atino()const=0;
+	virtual double Atino()const=0;
 	virtual double DineroGanado()const=0;
 
 	

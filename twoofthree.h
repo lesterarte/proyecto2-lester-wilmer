@@ -5,13 +5,13 @@
 using std::string;
 
 class twoofthree : public tiro{
-	string atino1;
+	double atino1;
 	double dinero2;
   public:
-	twoofthree(string, double);
+	twoofthree(double, double);
 	virtual ~twoofthree();
 	virtual string toString()const;
-	string Atino()const;
+	double Atino()const;
 	double DineroGanado()const;
 
 };

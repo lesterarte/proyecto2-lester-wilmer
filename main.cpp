@@ -1,7 +1,14 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdio.h> 
+#include <stdio.h>
+#include "tiro.h"
+#include "oneofthree.h"
+#include "twoofthree.h"
+#include "threeofthree.h"
+#include <string>
+#include <iostream>
+using std::cout;
 
 void mapa(); 
 void mapapiezas(char**, int,int);
@@ -12,8 +19,10 @@ void rules();
 bool existencia(char**,char,char);
 void clearmap(char**, int,int);
 
-int main(int argc, char*argv[])
-{
+int main(int argc, char*argv[]){
+	double apuestaJugador = 100;
+	double gananciaJugador ;
+	double uu =0;
 	int filas = 3; 
 	int columnas= 4; 
 	char apuesta = ' '; 
@@ -35,12 +44,10 @@ int main(int argc, char*argv[])
 	mvprintw(17,20, "3. SALIR");
 	move(18,20);
 
-	while( cont != 1 )
-	{
+	while( cont != 1 ){
 		noecho();
 		apuesta = getch();
-		if(apuesta >= 49 && apuesta <= 51)
-		{
+		if(apuesta >= 49 && apuesta <= 51){
 			addch(apuesta);
 			echo();
 			cont++;
@@ -53,10 +60,8 @@ int main(int argc, char*argv[])
 	mvprintw(16,20, "                    ");
 	mvprintw(17,20, "          ");
 
-	while(apuesta != 51)
-	{
-		if(apuesta == 49)
-		{
+	while(apuesta != 51){
+		if(apuesta == 49){
 			signedpremios(arraypremios,filas,columnas);
 			clear();
 			refresh();
@@ -66,67 +71,73 @@ int main(int argc, char*argv[])
 			move(11,117);
 			char apuntar;
 						 
-			while(turnos < 3)
-			{
-				while( contar  != 2)
-				{
+			while(turnos < 3){
+				while( contar  != 2){
 					noecho();
 					apuntar = getch();
-					if(apuntar >= 48 && apuntar <= 57)
-					{
-						if(contar > 0)
-						{
-							if(pocision[0] == 48)
-							{
-								if(apuntar > 48 && apuntar <= 57)
-								{
+					if(apuntar >= 48 && apuntar <= 57){
+						if(contar > 0){
+							if(pocision[0] == 48){
+								if(apuntar > 48 && apuntar <= 57){
+									pocision[1] = apuntar; 
+									addch(apuntar);
+									echo();
+
+									contar++;
+								}
+							}else{
+								if(apuntar == 48 || apuntar == 49 || apuntar == 50){
 									pocision[1] = apuntar; 
 									addch(apuntar);
 									echo();
 									contar++;
 								}
 							}
-							else
-							{
-								if(apuntar == 48 || apuntar == 49 || apuntar == 50)
-								{
-									pocision[1] = apuntar; 
-									addch(apuntar);
-									echo();
-									contar++;
-								}
-							}
-						}
-						else
-						{
-							if(apuntar == 48 || apuntar == 49 )
-							{
+						}else{
+							if(apuntar == 48 || apuntar == 49 ){
 								pocision[0] = apuntar; 
 								addch(apuntar);
 								echo();
+
 								contar++;
 							}
 						}
 					}
-				}//fin de while de ingreso de coordenada	
+				}//fin de while de ingreso de coordenada	segundo whiler anidado al while turnos
 				contar=0;			
 				move(11,117);
-				if(existencia(arraypremios,pocision[0],pocision[1]) == true)
-				{
+				
+				if(existencia(arraypremios,pocision[0],pocision[1]) == true){
 					clearmap(arraypremios,filas,columnas);
 					mapapiezas(arraypremios,filas,columnas);
 					refresh();
 					mvprintw(18,90,"FELICIDADES ACERTASTE ");
-					getch();
-					
+						
+					if(turnos==0){
 
-				}
-				else
-				{
+						oneofthree tr (0.10,100);
+						gananciaJugador  = tr.DineroGanado();
+					}	
+					if (turnos==1){
+						twoofthree tr (0.35,100);
+						gananciaJugador  = tr.DineroGanado();
+					}	
+					if (turnos==2){
+						threeofthree tr (0.50,100);
+						gananciaJugador  = tr.DineroGanado();
+					}	
+
+
+					printw("[%lf] ",gananciaJugador );
+
+					getch();
+
+				}else{
 					clearmap(arraypremios,filas,columnas);
 					mapapiezas(arraypremios,filas,columnas);
 					refresh();
 					mvprintw(18,90,"PERDISTE, NO HAY PREMIO ");
+					printw("[%lf] ",gananciaJugador );
 					getch();
 				}
 
@@ -136,17 +147,19 @@ int main(int argc, char*argv[])
 				apuntar=' ';
 
 				turnos++;
-			}
-		}
+			}// fin del while turnos
+		} //fin del if
 
-		if(apuesta == 50)
-		{
+		if(apuesta == 50){
 			clear();
 			refresh();
 			rules();
 			getch();
 		}
 		cont=0;
+
+		
+		// nose porque tenes dos menus 
 		clear();
 		refresh();
 		mvprintw(9,20,"***************************************** BIENVENIDO **************************************");
@@ -156,12 +169,10 @@ int main(int argc, char*argv[])
 		mvprintw(17,20, "3. SALIR");
 		move(18,20);
 
-		while( cont != 1 )
-		{
+		while( cont != 1 ){
 			noecho();
 			apuesta = getch();
-			if(apuesta >= 49 && apuesta <= 51)
-			{
+			if(apuesta >= 49 && apuesta <= 51){
 				addch(apuesta);
 				echo();
 				cont++;
@@ -173,10 +184,11 @@ int main(int argc, char*argv[])
 		mvprintw(15,20, "                 ");
 		mvprintw(16,20, "                    ");
 		mvprintw(17,20, "   ");
-	}
-
+	}// fin de apuesta primer while
+	gananciaJugador = 0;
 	endwin();
 	deletepremios(arraypremios,filas,columnas);
+	
 	return 0; 
 }//fin  main 
 
@@ -197,8 +209,7 @@ void clearmap(char** disparo,int fil,int cols)
 		}
 	}	
 }
-void rules()
-{
+void rules(){
 	mvprintw(1,35,"******************** INSTRUCCIONES DE JUEGO **********************");
 	mvprintw(5,10,"1. APOSTAR: ");
 	mvprintw(7,10,"Al comenzar el juego cada jugador invierte una suma de dinero la cual es su capital para jugar.");
@@ -212,29 +223,26 @@ void rules()
 	mvprintw(18,10,"Si el jugador no aciera ningun juego se le preguntara si desea seguir jugando");
 	mvprintw(30,10, "Cualquier tecla para continuar ");
 
-}
+}// fin de rules
 
 
-void crearpremios(char** premios,int fil, int cols)
-{
+void crearpremios(char** premios,int fil, int cols){
 	for(int i=0;i<fil;i++)
 	{
 		premios[i] = new char [cols];	
 	}
-}
+}// fin de crearpremios
 
-void deletepremios(char** premios,int fil, int cols)
-{
+void deletepremios(char** premios,int fil, int cols){
 	for(int i=0; i<fil; i++)
 	{
 		delete[] premios[i];		
 	}	
 
 	delete[] premios; 
-}
+}// liberar memoria
 
-void signedpremios(char** premios, int fil, int cols)
-{ 
+void signedpremios(char** premios, int fil, int cols){ 
 	for(int i=0; i<fil;i++)
 	{
 		for(int j=0; j<cols;j++)
@@ -247,10 +255,9 @@ void signedpremios(char** premios, int fil, int cols)
 	{
 		premios[rand()%3][rand()%4] = '#';
 	}	
-}
+}// fin de signedpremios
 
-bool existencia(char** premios,char first, char second)
-{
+bool existencia(char** premios,char first, char second){
 
 	int xchar= first - '0';
 	int ychar= second - '0';
@@ -334,10 +341,9 @@ bool existencia(char** premios,char first, char second)
 		premios[x][y] = '-';
 		return false; 
 	}
-}
+}// fin de existencia
 
-void mapa()
-{
+void mapa(){
 	
 	mvprintw(1,20,"***************************************** BIENVENIDO **************************************");
 	mvprintw(2,17,"****************************************** TIRO AL BLANCO ***************************************");
@@ -354,10 +360,9 @@ void mapa()
 	mvprintw(39,9,"-----+---------+------+---------+------+---------+-------+--------+-----  "); 
 	mvprintw(10,90,"INGRESE LA POCISION DE LA PIEZA");
 	mvprintw(11,90,"A LA QUE DESEA DISPARAR:  ");
-}
+}// fin de crear el mapa
 
-void mapapiezas(char** disparo,int fil,int cols)
-{
+void mapapiezas(char** disparo,int fil,int cols){
 	for(int i=0; i<fil;i++)
 	{
 		for(int j=0; j<cols;j++)
@@ -375,4 +380,4 @@ void mapapiezas(char** disparo,int fil,int cols)
 			}
 		}
 	}	
-}
+}//fin de mapa piezas
