@@ -37,32 +37,28 @@ int main(int argc, char*argv[]){
 	initscr();
 	refresh();
 	echo();
-	mvprintw(9,20,"***************************************** BIENVENIDO **************************************");
-	mvprintw(10,17,"****************************************** TIRO AL BLANCO ***************************************"); 
-	mvprintw(15,20, "1. JUGAR  "); 
-	mvprintw(16,20, "2. COMO JUGAR??");
-	mvprintw(17,20, "3. SALIR");
-	move(18,20);
-
-	while( cont != 1 ){
+	
+	while(apuesta != 51){
+		turnos=0;
+		clear();
+		refresh();
+		mvprintw(9,20,"***************************************** BIENVENIDO **************************************");
+		mvprintw(10,17,"****************************************** TIRO AL BLANCO ***************************************"); 
+		mvprintw(15,20, "1. JUGAR  "); 
+		mvprintw(16,20, "2. COMO JUGAR??");
+		mvprintw(17,20, "3. SALIR");
+		move(18,20);
 		noecho();
 		apuesta = getch();
-		if(apuesta >= 49 && apuesta <= 51){
-			addch(apuesta);
-			echo();
-			cont++;
-		}
-	}
-	cont=0; 
-	mvprintw(9,20,"                                                                                                 ");
-	mvprintw(10,17,"                                                                                                        "); 
-	mvprintw(15,20, "                 ");
-	mvprintw(16,20, "                    ");
-	mvprintw(17,20, "          ");
+		mvprintw(9,20,"                                                                                                 ");
+		mvprintw(10,17,"                                                                                                        "); 
+		mvprintw(15,20, "                 ");
+		mvprintw(16,20, "                    ");
+		mvprintw(17,20, "                       ");
 
-	while(apuesta != 51){
-		if(apuesta == 49){
-			double LePegoAlBlanco=-1;
+		if(apuesta == 49)
+		{
+			double LePegoAlBlanco = -1;
 			signedpremios(arraypremios,filas,columnas);
 			clear();
 			refresh();
@@ -70,8 +66,7 @@ int main(int argc, char*argv[]){
 			mapapiezas(arraypremios,filas,columnas);
 			refresh();
 			move(11,117);
-			char apuntar;
-						 
+			char apuntar;			 
 			while(turnos < 3){
 				while( contar  != 2){
 					noecho();
@@ -146,7 +141,7 @@ int main(int argc, char*argv[]){
 				}
 
 				mvprintw(11,117,"   ");
-				mvprintw(18,90,"                             ");
+				mvprintw(18,90,"                                              ");
 				move(11,117);
 				apuntar=' ';
 
@@ -160,39 +155,10 @@ int main(int argc, char*argv[]){
 			rules();
 			getch();
 		}
-		cont=0;
-
-		
-		// nose porque tenes dos menus 
-		clear();
-		refresh();
-		mvprintw(9,20,"***************************************** BIENVENIDO **************************************");
-		mvprintw(10,17,"****************************************** TIRO AL BLANCO ***************************************"); 
-		mvprintw(15,20, "1. JUGAR  "); 
-		mvprintw(16,20, "2. COMO JUGAR??");
-		mvprintw(17,20, "3. SALIR");
-		move(18,20);
-
-		while( cont != 1 ){
-			noecho();
-			apuesta = getch();
-			if(apuesta >= 49 && apuesta <= 51){
-				addch(apuesta);
-				echo();
-				cont++;
-			}
-		}
-		cont=0; 
-		mvprintw(9,20,"                                                                                                 ");
-		mvprintw(10,17,"                                                                                                        "); 
-		mvprintw(15,20, "                 ");
-		mvprintw(16,20, "                    ");
-		mvprintw(17,20, "   ");
 	}// fin de apuesta primer while
 	gananciaJugador = 0;
 	endwin();
 	deletepremios(arraypremios,filas,columnas);
-	
 	return 0; 
 }//fin  main 
 
@@ -213,7 +179,8 @@ void clearmap(char** disparo,int fil,int cols)
 		}
 	}	
 }
-void rules(){
+void rules()
+{
 	mvprintw(1,35,"******************** INSTRUCCIONES DE JUEGO **********************");
 	mvprintw(5,10,"1. APOSTAR: ");
 	mvprintw(7,10,"Al comenzar el juego cada jugador invierte una suma de dinero la cual es su capital para jugar.");
@@ -226,9 +193,7 @@ void rules(){
 	mvprintw(16,13,"2.3 - si el jugador acierta 3 tiros de 3 su ganancia sera el 0.50 de su apuesta");
 	mvprintw(18,10,"Si el jugador no aciera ningun juego se le preguntara si desea seguir jugando");
 	mvprintw(30,10, "Cualquier tecla para continuar ");
-
 }// fin de rules
-
 
 void crearpremios(char** premios,int fil, int cols){
 	for(int i=0;i<fil;i++)
@@ -246,7 +211,8 @@ void deletepremios(char** premios,int fil, int cols){
 	delete[] premios; 
 }// liberar memoria
 
-void signedpremios(char** premios, int fil, int cols){ 
+void signedpremios(char** premios, int fil, int cols)
+{ 
 	for(int i=0; i<fil;i++)
 	{
 		for(int j=0; j<cols;j++)
@@ -261,7 +227,8 @@ void signedpremios(char** premios, int fil, int cols){
 	}	
 }// fin de signedpremios
 
-bool existencia(char** premios,char first, char second){
+bool existencia(char** premios,char first, char second)
+{
 
 	int xchar= first - '0';
 	int ychar= second - '0';
@@ -347,7 +314,8 @@ bool existencia(char** premios,char first, char second){
 	}
 }// fin de existencia
 
-void mapa(){
+void mapa()
+{
 	
 	mvprintw(1,20,"***************************************** BIENVENIDO **************************************");
 	mvprintw(2,17,"****************************************** TIRO AL BLANCO ***************************************");
@@ -366,7 +334,8 @@ void mapa(){
 	mvprintw(11,90,"A LA QUE DESEA DISPARAR:  ");
 }// fin de crear el mapa
 
-void mapapiezas(char** disparo,int fil,int cols){
+void mapapiezas(char** disparo,int fil,int cols)
+{
 	for(int i=0; i<fil;i++)
 	{
 		for(int j=0; j<cols;j++)
