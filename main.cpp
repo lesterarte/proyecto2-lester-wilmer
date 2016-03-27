@@ -22,7 +22,6 @@ void clearmap(char**, int,int);
 int main(int argc, char*argv[]){
 	double apuestaJugador = 100;
 	double gananciaJugador ;
-	double uu =0;
 	int filas = 3; 
 	int columnas= 4; 
 	char apuesta = ' '; 
@@ -56,8 +55,7 @@ int main(int argc, char*argv[]){
 		mvprintw(16,20, "                    ");
 		mvprintw(17,20, "                       ");
 
-		if(apuesta == 49)
-		{
+		if(apuesta == 49){
 			double LePegoAlBlanco = -1;
 			signedpremios(arraypremios,filas,columnas);
 			clear();
@@ -155,8 +153,9 @@ int main(int argc, char*argv[]){
 			rules();
 			getch();
 		}
+		gananciaJugador = 0;
 	}// fin de apuesta primer while
-	gananciaJugador = 0;
+	
 	endwin();
 	deletepremios(arraypremios,filas,columnas);
 	return 0; 
